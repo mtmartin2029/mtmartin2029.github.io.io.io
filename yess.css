@@ -1,0 +1,73 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  font-family: Arial, sans-serif;
+  background: url("https://i.imgur.com/ukHNFuo.png") no-repeat center top;
+  background-size: cover;
+  background-attachment: scroll;
+}
+  
+
+.topUI {
+  text-align: center;
+  color: white;
+  position: sticky;
+  top: 0;
+  background: rgba(0,0,0,0.5);
+  padding: 15px;
+}
+
+.topUI h1, .topUI p {
+  margin: 5px;
+}
+
+.canvas-area {
+  position: relative;
+  width: 100%;
+  min-height: 730px; 
+  background: transparent;
+  overflow: hidden;
+}
+
+.shape {
+  position: absolute;
+  cursor: pointer;
+  transition: transform 0.2s;
+  display: flex;
+  width: 120px;
+  height: 120px;
+}
+
+.shape:hover {
+  transform: scale(1.1);
+}
+
+.circle {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  transform: scale(1.7);
+}
+
+.square {
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  transform: scale(1.7);
+}
+
+.triangle {
+  width: 0;
+  height: 0;
+  border-left: 60px solid transparent;
+  border-right: 60px solid transparent;
+  transform: scale(1.7);
+}
+
+#targetColor {
+  font-size: 2em;
+}
+#score, #round, #time {
+  font-weight: bold;
+}

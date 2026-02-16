@@ -1,0 +1,56 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: url("https://image2url.com/r2/default/images/1771140519695-65e2bb2c-be1e-415f-a2e7-55cfa9f0daf5.png") no-repeat center top;
+  background-size: cover;
+}
+
+.canvas-area {
+  position: relative;
+  width: 100%;
+  min-height: 120vh; 
+}
+
+#main-menu {
+  position: absolute;
+  top: 78%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 50px;
+}
+
+.hitbox {
+  padding: 15px 50px;
+  font-size: 1.3rem;
+  border: 3px solid #f3c1cf;
+  border-radius: 50px;
+  cursor: pointer;
+  color: #d8a481;
+  font-weight: bold;
+  background: white;
+  text-align: center;
+  transition: transform 0.2s;
+}
+
+.hitbox:hover {
+  transform: scale(1.1);
+  background: #fffcfd;
+}
+
+#game-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 20;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}

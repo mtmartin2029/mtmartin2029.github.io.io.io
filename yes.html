@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Color Game</title>
+  <link rel="stylesheet" href="yess.css">
+</head>
+<body>
+
+  <div class="topUI">
+    <h2>Click the color that is NOT:</h2>
+    <h1 id="targetColor">---</h1>
+    <div>Time left: <span id="time">1</span>s</div>
+    <p id="round">Round: 1</p>
+    <p id="score">Score: 0</p>
+  </div>
+
+  <div class="canvas-area" id="canvasArea"></div>
+
+  <script>
+window.onload = function() {
+
+  const roundSettings = {
+    1: ["#ffcec8", "#fffabc", "#a299b4"],
+    2: ["#ffcec8", "#fffabc", "#a299b4", "#cbe3fd", "#bee6cc", "#ffd59d"],
+    3: ["#ffcec8", "#fffabc", "#a299b4", "#cbe3fd", "#bee6cc", "#ffd59d"]
+  };
+
+  let currentRound = 1;
+  let miniRound = 1;
+  const maxMiniRounds = 5;
+  let score = 0;
+  let currentColor = "";
+  let timeLeft = 1;
+  let timer;
+
+  const canvas = document.getElementById("canvasArea");
+  const targetText = document.getElementById("targetColor");
+  const scoreText = document.getElementById("score");
+  const roundText = document.getElementById("round");
+  const timeText = document.getElementById("time");
+
+  const round1Positions = [
+    {left: "570px", top: "200px"},
+    {left: "970px", top: "200px"},
+    {left: "770px", top: "450px"}
+  ];
+
+  const round2Positions = [
+    {left: "500px", top: "200px"},
+    {left: "780px", top: "200px"},
+    {left: "1050px", top: "200px"},
+    {left: "500px", top: "500px"},
+    {left: "780px", top: "500px"},
+    {left: "1050px", top: "500px"}
+  ];
+
+  const round3Positions = [
+    {left: "500px", top: "200px"},
+    {left: "780px", top: "200px"},
+    {left: "1050px", top: "200px"},
+    {left: "500px", top: "500px"},
+    {left: "780px", top: "500px"},
+    {left: "1050px", top: "500px"}
+  ];
+
+  function startTimer() {
+    clearInterval(timer);
+    timeLeft = 1;
+    timeText.textContent = timeLeft;
+
+    timer = setInterval(() => {
+      timeLeft--;
+      timeText.textContent = timeLeft;
+
+      if (timeLeft <= 0) {
+        clearInterval(timer);
+        alert("Time's up! Game restarting.");
+        location.reload();
+      }
+    }, 1000);
+  }
+
+  function createShapes() {
+    canvas.innerHTML = "";
+    const colors = roundSettings[currentRound];
+
+    colors.forEach((color, index) => {
+      const shape = document.createElement("div");
+      shape.classList.add("shape");
+      shape.dataset.color = color;
+
+      let left, top;
+
+      if (currentRound === 1) {
+        const pos = round1Positions[index];
+        left = pos.left;
+        top = pos.top;
+
+        const circle = document.createElement("div");
+        circle.classList.add("circle");
+        circle.style.background = color;
+        shape.appendChild(circle);
+
+      } else if (currentRound === 2) {
+        const pos = round2Positions[index];
+        left = pos.left;
+        top = pos.top;
+
+        const circle = document.createElement("div");
+        circle.classList.add("circle");
+        circle.style.background = color;
+        shape.appendChild(circle);
+
+      } else if (currentRound === 3) {
+        const pos = round3Positions[index];
+        left = pos.left;
+        top = pos.top;
+
+        const shapeTypes = ["circle", "square", "triangle"];
+        const randomShape = shapeTypes[Math.floor(Math.random() * shapeTypes.length)];
+
+        if (randomShape === "triangle") {
+          const tri = document.createElement("div");
+          tri.classList.add("triangle");
+          tri.style.borderBottom = "120px solid " + color;
+          shape.appendChild(tri);
+        } else {
+          const shp = document.createElement("div");
+          shp.classList.add(randomShape);
+          shp.style.background = color;
+          shape.appendChild(shp);
+        }
+      }
+
+      shape.style.left = left;
+      shape.style.top = top;
+
+      shape.addEventListener("click", () => handleClick(color));
+      canvas.appendChild(shape);
+    });
+  }
+
+  function newMiniRound() {
+    const colors = roundSettings[currentRound];
+    currentColor = colors[Math.floor(Math.random() * colors.length)];
+
+    targetText.textContent = currentColor.toUpperCase();
+    targetText.style.color = currentColor;
+
+    createShapes();
+    startTimer();
+  }
+
+  function handleClick(clickedColor) {
+    if (clickedColor !== currentColor) {
+      score++;
+      scoreText.textContent = "Score: " + score;
+
+      miniRound++;
+      if (miniRound > maxMiniRounds) {
+        nextRound();
+      } else {
+        newMiniRound();
+      }
+    } else {
+      clearInterval(timer);
+      alert("You clicked the wrong color! Game Over!\nFinal Score: " + score);
+      location.reload();
+    }
+  }
+
+  function nextRound() {
+    if (currentRound < 3) {
+      currentRound++;
+      miniRound = 1;
+      roundText.textContent = "Round: " + currentRound;
+      newMiniRound();
+    } else {
+      clearInterval(timer);
+      alert("You Win! Final Score: " + score);
+      location.reload();
+    }
+  }
+
+  newMiniRound();
+};
+  </script>
+</body>
+</html>

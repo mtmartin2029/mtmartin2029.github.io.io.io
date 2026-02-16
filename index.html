@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Mind the Color</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="canvas-area">
+    <div id="main-menu">
+      <div id="btn-tutorial" class="hitbox">Tutorial</div>
+      <div id="btn-start" class="hitbox">Start</div>
+      <div id="btn-authors" class="hitbox">Authors</div>
+    </div>
+
+    <div id="game-screen">
+      <h1 id="screen-title">Screen</h1>
+      <div id="back-btn" class="hitbox">Go Back</div>
+    </div>
+  </div>
+
+  <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const tutorial = document.getElementById('btn-tutorial');
+    const start = document.getElementById('btn-start');
+    const authors = document.getElementById('btn-authors');
+
+    tutorial.addEventListener("click", () => {
+      window.location.href = "bog1.html";
+    });
+
+    start.addEventListener("click", () => {
+      window.location.href = "yes.html";
+    });
+
+    authors.addEventListener("click", () => {
+      window.location.href = "bog2.html";
+    });
+  });
+  </script>
+
+</body>
+</html>
+
